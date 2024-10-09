@@ -1,0 +1,16 @@
+﻿# Development Dockerfile with SDK for migrations and local development
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dev
+
+WORKDIR /app
+COPY . .
+
+# Install dependencies and tools for EF Core
+RUN dotnet restore
+RUN dotnet build
+
+# Expose ports for development purposes
+EXPOSE 8080
+EXPOSE 8081
+
+# Run the application
+ENTRYPOINT ["dotnet", "ChessMasterAPI.dll"]

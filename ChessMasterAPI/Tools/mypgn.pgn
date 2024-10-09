@@ -1,0 +1,66 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2024.10.07"]
+[Round "?"]
+[White "hreddys"]
+[Black "Musclenut"]
+[Result "0-1"]
+[TimeControl "60"]
+[WhiteElo "961"]
+[BlackElo "1054"]
+[Termination "Musclenut won on time"]
+[ECO "B13"]
+[EndTime "20:36:54 GMT+0000"]
+[Link "https://www.chess.com/game/live/119952082770"]
+
+1. e4 {[%clk 0:01:00][%timestamp 1]} 1... c6 {[%clk 0:00:59.6][%timestamp 4]} 2.
+Nf3 {[%clk 0:00:59.4][%timestamp 6]} 2... d5 {[%clk 0:00:59.3][%timestamp 3]} 3.
+exd5 {[%clk 0:00:58][%timestamp 14]} 3... cxd5 {[%clk 0:00:59.2][%timestamp 1]}
+4. d4 {[%clk 0:00:55.6][%timestamp 24]} 4... Nc6 {[%clk 0:00:59.1][%timestamp
+1]} 5. Nc3 {[%clk 0:00:54.3][%timestamp 13]} 5... e6 {[%clk 0:00:59][%timestamp
+1]} 6. Be2 {[%clk 0:00:53.3][%timestamp 10]} 6... Bb4 {[%clk
+0:00:58.6][%timestamp 4]} 7. Bd2 {[%clk 0:00:52.5][%timestamp 8]} 7... Qa5
+{[%clk 0:00:56.8][%timestamp 18]} 8. O-O {[%clk 0:00:50.6][%timestamp 19]} 8...
+Qb6 {[%clk 0:00:56.2][%timestamp 6]} 9. Re1 {[%clk 0:00:49.5][%timestamp 11]}
+9... Nf6 {[%clk 0:00:55.5][%timestamp 7]} 10. a3 {[%clk 0:00:48.1][%timestamp
+14]} 10... Bd6 {[%clk 0:00:53.5][%timestamp 20]} 11. Bd3 {[%clk
+0:00:45.8][%timestamp 23]} 11... Ne4 {[%clk 0:00:52.3][%timestamp 12]} 12. Nxe4
+{[%clk 0:00:43.6][%timestamp 22]} 12... dxe4 {[%clk 0:00:52.2][%timestamp 1]}
+13. Bxe4 {[%clk 0:00:41.8][%timestamp 18]} 13... Nxd4 {[%clk
+0:00:49.6][%timestamp 26]} 14. Nxd4 {[%clk 0:00:40.3][%timestamp 15]} 14... Qxd4
+{[%clk 0:00:49.1][%timestamp 5]} 15. Bc3 {[%clk 0:00:37.5][%timestamp 28]} 15...
+Qxd1 {[%clk 0:00:47.8][%timestamp 13]} 16. Raxd1 {[%clk 0:00:36][%timestamp 15]}
+16... Bd7 {[%clk 0:00:46.3][%timestamp 15]} 17. Rxd6 {[%clk
+0:00:33.9][%timestamp 21]} 17... Rb8 {[%clk 0:00:44.3][%timestamp 20]} 18. Bxg7
+{[%clk 0:00:32.7][%timestamp 12]} 18... Rg8 {[%clk 0:00:43.1][%timestamp 12]}
+19. Bc3 {[%clk 0:00:31.6][%timestamp 11]} 19... Ke7 {[%clk 0:00:42.3][%timestamp
+8]} 20. Red1 {[%clk 0:00:30][%timestamp 16]} 20... Rbd8 {[%clk
+0:00:40.5][%timestamp 18]} 21. R6d4 {[%clk 0:00:26.9][%timestamp 31]} 21... Bc6
+{[%clk 0:00:39.7][%timestamp 8]} 22. Bxc6 {[%clk 0:00:23.6][%timestamp 33]}
+22... Rxd4 {[%clk 0:00:37.2][%timestamp 25]} 23. Rxd4 {[%clk
+0:00:23.5][%timestamp 1]} 23... bxc6 {[%clk 0:00:35.8][%timestamp 14]} 24. Rc4
+{[%clk 0:00:22.5][%timestamp 10]} 24... Rc8 {[%clk 0:00:34.3][%timestamp 15]}
+25. Rc5 {[%clk 0:00:21.1][%timestamp 14]} 25... f6 {[%clk 0:00:33.1][%timestamp
+12]} 26. Bd2 {[%clk 0:00:19.9][%timestamp 12]} 26... Kd6 {[%clk
+0:00:32.2][%timestamp 9]} 27. Be3 {[%clk 0:00:19.2][%timestamp 7]} 27... e5
+{[%clk 0:00:31][%timestamp 12]} 28. Ra5 {[%clk 0:00:18.4][%timestamp 8]} 28...
+Ra8 {[%clk 0:00:29.5][%timestamp 15]} 29. b4 {[%clk 0:00:16.8][%timestamp 16]}
+29... Ke6 {[%clk 0:00:27][%timestamp 25]} 30. Rc5 {[%clk 0:00:16.1][%timestamp
+7]} 30... Rc8 {[%clk 0:00:25.6][%timestamp 14]} 31. Bd2 {[%clk
+0:00:13.8][%timestamp 23]} 31... a6 {[%clk 0:00:25][%timestamp 6]} 32. Ra5
+{[%clk 0:00:12.5][%timestamp 13]} 32... f5 {[%clk 0:00:22][%timestamp 30]} 33.
+Be3 {[%clk 0:00:11.7][%timestamp 8]} 33... f4 {[%clk 0:00:21.4][%timestamp 6]}
+34. Bd2 {[%clk 0:00:10.4][%timestamp 13]} 34... Kf5 {[%clk 0:00:20.4][%timestamp
+10]} 35. Rxa6 {[%clk 0:00:09.7][%timestamp 7]} 35... h5 {[%clk
+0:00:19.3][%timestamp 11]} 36. Rb6 {[%clk 0:00:08.2][%timestamp 15]} 36... h4
+{[%clk 0:00:18.1][%timestamp 12]} 37. f3 {[%clk 0:00:07.8][%timestamp 4]} 37...
+c5 {[%clk 0:00:16.5][%timestamp 16]} 38. Bc3 {[%clk 0:00:07.3][%timestamp 5]}
+38... cxb4 {[%clk 0:00:15.1][%timestamp 14]} 39. axb4 {[%clk
+0:00:06.7][%timestamp 6]} 39... Rxc3 {[%clk 0:00:14.2][%timestamp 9]} 40. Rb5
+{[%clk 0:00:05.4][%timestamp 13]} 40... Rxc2 {[%clk 0:00:13.6][%timestamp 6]}
+41. Ra5 {[%clk 0:00:03.9][%timestamp 15]} 41... Rc1+ {[%clk
+0:00:12.8][%timestamp 8]} 42. Kf2 {[%clk 0:00:03.3][%timestamp 6]} 42... Rc4
+{[%clk 0:00:12.1][%timestamp 7]} 43. Ke2 {[%clk 0:00:02.4][%timestamp 9]} 43...
+Rxb4 {[%clk 0:00:11.5][%timestamp 6]} 44. Rd5 {[%clk 0:00:01][%timestamp 14]}
+44... Rd4 {[%clk 0:00:10.8][%timestamp 7]} 45. Kf2 {[%clk 0:00:00.3][%timestamp
+7]} 45... Rxd5 {[%clk 0:00:09.8][%timestamp 10]} 0-1
