@@ -2,22 +2,27 @@
 {
     public class ChessGame
     {
-        public Guid Id { get; set; } = Guid.NewGuid();  // Automatically generate a new GUID
-        public string PlayerNameWhite { get; set; }     // White player name
-        public string PlayerNameBlack { get; set; }     // Black player name
-        public string? Result { get; set; }              // Game result
-        public string? TimeControl { get; set; }         // Time control
-        public string? WhiteElo { get; set; }            // White player's Elo rating
-        public string? BlackElo { get; set; }            // Black player's Elo rating
-        public string? Termination { get; set; }         // Game termination reason
-        public string? ECO { get; set; }                 // Opening code (ECO)
-        public DateTime? GameDate { get; set; }          // Game date
-        public string? Link { get; set; }                // Game link
+        public ChessGame(string userId)
+        {
+            UserId = userId;
+            Id = Guid.NewGuid();
+        }
 
-        public string? Site { get; set; }                // Site where the game was played
+        public Guid Id { get; set; }  // Automatically generate a new GUID
+        public string PlayerNameWhite { get; set; } = string.Empty; // Ensure default values to avoid null issues
+        public string PlayerNameBlack { get; set; } = string.Empty;
+        public string Result { get; set; } = string.Empty;
+        public string PGN { get; set; } = string.Empty;
+        public string? TimeControl { get; set; }
+        public string? WhiteElo { get; set; }
+        public string? BlackElo { get; set; }
+        public string? Termination { get; set; }
+        public string? ECO { get; set; }
+        public DateTime? GameDate { get; set; }
+        public string? Link { get; set; }
+        public string? Site { get; set; }
 
-        public string PGN { get; set; }                 // PGN content
-        public string FEN { get; set; }                 // FEN (after conversion)
+        public string UserId { get; set; }  
+        public User User { get; set; }      // Navigation property
     }
-
 }
