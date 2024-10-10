@@ -1,2 +1,2 @@
 # ChessMasterAPI
-### Chess
+### .NET Cor Web API
