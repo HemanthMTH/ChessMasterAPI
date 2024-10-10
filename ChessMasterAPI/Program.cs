@@ -15,8 +15,12 @@ builder.Services.AddSingleton<StockfishService>(sp =>
     new StockfishService(Path.Combine(Directory.GetCurrentDirectory(), "stockfishengine.exe")));
 builder.Services.AddTransient<PgnParserService>();
 
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();

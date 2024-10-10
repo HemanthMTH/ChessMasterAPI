@@ -10,5 +10,23 @@ namespace ChessMasterAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base (options) { }
         
         public DbSet<ChessGame> ChessGames { get; set; }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is ChessGame chessGame)
+                {
+                    // Ensure all DateTimes are UTC before saving
+                    if (chessGame.GameDate.HasValue)
+                    {
+                        chessGame.GameDate = DateTime.SpecifyKind(chessGame.GameDate.Value, DateTimeKind.Utc);
+                    }
+                }
+            }
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
     }
 }

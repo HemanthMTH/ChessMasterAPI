@@ -29,6 +29,15 @@ namespace ChessMasterAPI.Services
                         chessGame.GameDate = gameDate;
                     }
                 }
+                //else if (line.StartsWith("[Date "))
+                //{
+                //    string dateStr = line.Split('"')[1];
+                //    if (DateTime.TryParse(dateStr, out DateTime gameDate))
+                //    {
+                //        // Ensure the DateTime is in UTC
+                //        chessGame.GameDate = DateTime.SpecifyKind(gameDate, DateTimeKind.Utc);
+                //    }
+                //}
                 else if (line.StartsWith("[White "))
                 {
                     chessGame.PlayerNameWhite = line.Split('"')[1];

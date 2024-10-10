@@ -31,6 +31,7 @@ namespace ChessMasterAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
             var user = _mapper.Map<User>(model);  // Use AutoMapper to map RegisterDto to User
+            user.UserName = model.Email;
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
