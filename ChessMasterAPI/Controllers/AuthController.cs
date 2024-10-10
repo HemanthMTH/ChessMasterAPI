@@ -1,12 +1,14 @@
 ﻿using ChessMasterAPI.Data.Models;
+using ChessMasterAPI.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
 
-namespace ChessMasterProAPI.Controllers
+namespace ChessMasterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,20 +17,22 @@ namespace ChessMasterProAPI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Register model)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
-            var user = new User { UserName = model.Email, Email = model.Email, FullName = model.FullName };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var user = _mapper.Map<User>(model);  // Use AutoMapper to map RegisterDto to User
 
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 return Ok(new { Message = "User registered successfully" });
@@ -38,7 +42,7 @@ namespace ChessMasterProAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Login model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null) return Unauthorized();
@@ -49,6 +53,7 @@ namespace ChessMasterProAPI.Controllers
             var authClaims = new[]
             {
                 new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -69,6 +74,4 @@ namespace ChessMasterProAPI.Controllers
             });
         }
     }
-
-    
 }

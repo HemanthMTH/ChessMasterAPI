@@ -1,5 +1,6 @@
 using ChessMasterAPI.Data;
 using ChessMasterAPI.Data.Models;
+using ChessMasterAPI.Profiles;
 using ChessMasterAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -11,11 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<StockfishService>(sp =>
-    new StockfishService(Path.Combine(Directory.GetCurrentDirectory(), "stockfish-engine.exe")));
-builder.Services.AddSingleton<PgnToFenService>();
+    new StockfishService(Path.Combine(Directory.GetCurrentDirectory(), "stockfishengine.exe")));
 builder.Services.AddTransient<PgnParserService>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole>()
@@ -41,12 +41,13 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(ChessProfile));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200") // Angular app URL
+            builder.WithOrigins("http://localhost:4200")
                    .AllowAnyHeader()
                    .AllowAnyMethod()
                    .AllowCredentials();

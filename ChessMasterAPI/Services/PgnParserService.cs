@@ -1,21 +1,22 @@
-﻿using ChessMasterAPI.Data.Models;
-using System;
+﻿// Ignore Spelling: Metadata
+
+using ChessMasterAPI.Data.Models;
 
 namespace ChessMasterAPI.Services
 {
     public class PgnParserService
     {
         // Method to parse PGN metadata
-        public ChessGame ParsePgnMetadata(string pgnContent)
+        public ChessGame ParsePgnMetadata(string pgnContent, string userId)
         {
-            var chessGame = new ChessGame();
+            var chessGame = new ChessGame(userId);
 
             // Extract metadata from the PGN header
             var lines = pgnContent.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var line in lines)
             {
-                if (line.StartsWith("[Event ")) continue; // Ignore [Event] line
+                if (line.StartsWith("[Event ")) continue; 
                 else if (line.StartsWith("[Site "))
                 {
                     chessGame.Site = line.Split('"')[1];
@@ -66,7 +67,7 @@ namespace ChessMasterAPI.Services
                 }
             }
 
-            chessGame.PGN = pgnContent; 
+            chessGame.PGN = pgnContent;
 
             return chessGame;
         }
