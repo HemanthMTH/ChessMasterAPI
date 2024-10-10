@@ -141,6 +141,21 @@ namespace ChessMasterAPI.Controllers
             return Ok(new { BestMove = analysisResult });
         }
 
+        [HttpPost("analyze-position")]
+        public async Task<IActionResult> AnalyzePosition([FromBody] AnalyzeRequest model)
+        {
+            if (string.IsNullOrEmpty(model.FEN))
+            {
+                return BadRequest(new { Message = "Invalid FEN string!" });
+            }
+
+            // Use Stockfish to analyze the position
+            string analysisResult = await _stockfishService.AnalyzePosition(model.FEN);
+
+            return Ok(new { BestMove = analysisResult , FEN = model.FEN});
+        }
+
+
     }
 
 }

@@ -17,7 +17,6 @@ namespace ChessMasterAPI.Services
         // Start the Stockfish process and return the analysis of the given FEN
         public async Task<string> AnalyzePosition(string fen)
         {
-            // Initialize Stockfish process
             var stockfishProcess = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -30,28 +29,47 @@ namespace ChessMasterAPI.Services
                 }
             };
 
-            stockfishProcess.Start();
-
-            // Send the UCI commands to Stockfish
-            using (StreamWriter writer = stockfishProcess.StandardInput)
+            try
             {
-                if (writer.BaseStream.CanWrite)
+                stockfishProcess.Start();
+
+                // Send the UCI commands to Stockfish
+                using (StreamWriter writer = stockfishProcess.StandardInput)
                 {
-                    // UCI (Universal Chess Interface) initialization
-                    await writer.WriteLineAsync("uci");
-                    await writer.WriteLineAsync($"position fen {fen}");
-                    await writer.WriteLineAsync("go depth 20"); // Analyze up to depth 20
-                    await writer.WriteLineAsync("quit");
+                    if (writer.BaseStream.CanWrite)
+                    {
+                        // Send UCI initialization commands
+                        await writer.WriteLineAsync("uci");
+
+                        // Send properly formatted position command
+                        await writer.WriteLineAsync($"position fen {fen}");
+
+                        // Command to start analysis
+                        await writer.WriteLineAsync("go movetime 3000");
+
+                        // Quit after analysis is complete
+                        await writer.WriteLineAsync("quit");
+                    }
                 }
+
+                // Capture the output from Stockfish
+                string output = await stockfishProcess.StandardOutput.ReadToEndAsync();
+                stockfishProcess.WaitForExit();
+
+                return ParseBestMove(output);
             }
-
-            // Capture the output from Stockfish
-            string output = await stockfishProcess.StandardOutput.ReadToEndAsync();
-            stockfishProcess.WaitForExit();
-
-            return ParseBestMove(output);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during Stockfish execution: {ex.Message}");
+                return "Error occurred";
+            }
+            finally
+            {
+                stockfishProcess?.Dispose(); // Ensure process is cleaned up
+            }
         }
-        
+
+
         // Extract the best move from the Stockfish output
         private string ParseBestMove(string stockfishOutput)
         {
