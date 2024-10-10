@@ -109,7 +109,7 @@ namespace ChessMasterAPI.Controllers
                 return BadRequest(new { Message = "Invalid FEN string!" });
             }
 
-            // Use Stockfish to analyze the position
+            
             string analysisResult = await _stockfishService.AnalyzePosition(analyzeRequest.FEN);
 
             AnalyzeResponseDTO responseDTO = new AnalyzeResponseDTO() { BestMove = analysisResult, CurrentFEN = analyzeRequest.FEN };
