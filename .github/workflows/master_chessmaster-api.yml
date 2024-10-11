@@ -3,36 +3,30 @@ name: Build and deploy ASP.Net Core app to Azure Web App - chessmaster-api
 on:
   push:
     branches:
-      - master  # Runs on push to the master branch
-  workflow_dispatch:  # Allows manual triggering of the workflow
+      - master
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the latest version of your code
       - uses: actions/checkout@v4
 
-      # Set up .NET Core SDK
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'  # Make sure to use the right version of .NET Core
+          dotnet-version: '8.x'
 
-      # Install .NET dependencies
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Update to correct path
 
-      # Build your application
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Update to correct path
 
-      # Publish the app for deployment
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp  # Update to correct path
 
-      # Upload build artifact for deployment
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -41,31 +35,30 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # Deploy only after the build job is completed
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      # Download build artifact from the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
 
-      # Deploy the app to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'chessmaster-api'  # Replace with your Azure App Service name
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Publish profile from GitHub Secrets
+          app-name: 'chessmaster-api'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
 
-      # Install dotnet-ef globally (required to run migrations)
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef
 
-      # Run Entity Framework Core migrations to update the database
+      # Running migrations, navigating to the correct directory
       - name: Run Entity Framework Migrations
-        run: dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}"
+        run: |
+          cd ChessMasterAPI  # Change directory to where the .csproj file is located
+          dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}"
