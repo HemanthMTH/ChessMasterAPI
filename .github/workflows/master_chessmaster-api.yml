@@ -57,8 +57,6 @@ jobs:
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef
 
-      # Running migrations, navigating to the correct directory
+      # Running migrations, using the full path to the project file
       - name: Run Entity Framework Migrations
-        run: |
-          cd ChessMasterAPI  # Change directory to where the .csproj file is located
-          dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}"
+        run: dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}" --project ChessMasterAPI/ChessMasterAPI.csproj
