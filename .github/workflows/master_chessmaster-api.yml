@@ -22,19 +22,15 @@ jobs:
 
       # Restore dependencies for the project
       - name: Restore dependencies
-        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Update to correct path
+        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj
 
       # Build the project
       - name: Build with dotnet
-        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Update to correct path
-
-      # Debugging step to list files in ChessMasterAPI directory
-      - name: List Files for Debugging
-        run: ls -R ChessMasterAPI/
+        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release
 
       # Publish the project for deployment
       - name: Publish project
-        run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp  # Publish the app
+        run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       # Upload build artifact for the deployment job
       - name: Upload artifact for deployment job
@@ -65,15 +61,3 @@ jobs:
           app-name: 'chessmaster-api'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
-
-      # Install dotnet-ef globally (required for migrations)
-      - name: Install dotnet-ef tool
-        run: dotnet tool install --global dotnet-ef
-
-      # Rebuild the project before migrations (to ensure obj is available)
-      - name: Rebuild project
-        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release
-
-      # Run the Entity Framework Core migrations
-      - name: Run Entity Framework Migrations
-        run: dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}" --project ChessMasterAPI/ChessMasterAPI.csproj
