@@ -22,15 +22,19 @@ jobs:
 
       # Restore dependencies for the project
       - name: Restore dependencies
-        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Update to correct path
+        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Restore for the correct project
 
       # Build the project
       - name: Build with dotnet
-        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Update to correct path
+        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Ensure it builds correctly
+
+      # Debugging step to list files in ChessMasterAPI directory
+      - name: List Files for Debugging
+        run: ls -R ChessMasterAPI/
 
       # Publish the project for deployment
       - name: Publish project
-        run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp  # Update to correct path
+        run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp  # Publish the app
 
       # Upload build artifact for the deployment job
       - name: Upload artifact for deployment job
@@ -38,10 +42,6 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-
-      # Debugging step to list files in ChessMasterAPI directory
-      - name: List Files for Debugging
-        run: ls -R ChessMasterAPI/
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,6 +69,10 @@ jobs:
       # Install dotnet-ef globally (required for migrations)
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef
+
+      # Rebuild the project before migrations (to ensure obj is available)
+      - name: Rebuild project
+        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release
 
       # Run the Entity Framework Core migrations
       - name: Run Entity Framework Migrations
