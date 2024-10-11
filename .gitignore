@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore appsettings files with sensitive information
+appsettings.*.json
+appsettings.Development.json
+.env
+
+# Ignore Publish Profiles (publish profiles can contain sensitive info)
+*.pubxml
+*.pubxml.user
+
+# Ignore Azure Publish Settings
+*.azurePubxml
