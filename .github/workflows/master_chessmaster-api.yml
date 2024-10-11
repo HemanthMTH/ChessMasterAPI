@@ -11,27 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code
       - uses: actions/checkout@v4
 
+      # Set up .NET Core SDK
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
+      # Restore dependencies for the project
       - name: Restore dependencies
         run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Update to correct path
 
+      # Build the project
       - name: Build with dotnet
         run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Update to correct path
 
-      - name: dotnet publish
+      # Publish the project for deployment
+      - name: Publish project
         run: dotnet publish ChessMasterAPI/ChessMasterAPI.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp  # Update to correct path
 
+      # Upload build artifact for the deployment job
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+
+      # Debugging step to list files in ChessMasterAPI directory
+      - name: List Files for Debugging
+        run: ls -R ChessMasterAPI/
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,11 +51,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      # Download the artifact from the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
 
+      # Deploy the artifact to Azure Web App
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -54,9 +66,10 @@ jobs:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
 
+      # Install dotnet-ef globally (required for migrations)
       - name: Install dotnet-ef tool
         run: dotnet tool install --global dotnet-ef
 
-      # Running migrations, using the full path to the project file
+      # Run the Entity Framework Core migrations
       - name: Run Entity Framework Migrations
         run: dotnet ef database update --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}" --project ChessMasterAPI/ChessMasterAPI.csproj
