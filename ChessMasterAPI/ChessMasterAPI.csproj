@@ -8,16 +8,6 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Store\**" />
-    <Compile Remove="Tools\**" />
-    <Content Remove="Store\**" />
-    <Content Remove="Tools\**" />
-    <EmbeddedResource Remove="Store\**" />
-    <EmbeddedResource Remove="Tools\**" />
-    <None Remove="Store\**" />
-    <None Remove="Tools\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
