@@ -22,11 +22,11 @@ jobs:
 
       # Restore dependencies for the project
       - name: Restore dependencies
-        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Restore for the correct project
+        run: dotnet restore ChessMasterAPI/ChessMasterAPI.csproj  # Update to correct path
 
       # Build the project
       - name: Build with dotnet
-        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Ensure it builds correctly
+        run: dotnet build ChessMasterAPI/ChessMasterAPI.csproj --configuration Release  # Update to correct path
 
       # Debugging step to list files in ChessMasterAPI directory
       - name: List Files for Debugging
